@@ -1,0 +1,230 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NEXUS AI — Neural Interface</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/static/css/style.css" />
+  <!-- Markdown Parser -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body class="nexus-body">
+
+  <!-- Animated Background -->
+  <div class="bg-layer">
+    <div class="grid-overlay"></div>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+    <canvas id="particleCanvas"></canvas>
+  </div>
+
+  <!-- Scanline overlay -->
+  <div class="scanlines"></div>
+
+  <!-- Main App Shell -->
+  <div class="app-shell">
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="logo-mark">
+          <div class="logo-hex">
+            <span class="logo-letter">N</span>
+          </div>
+          <div class="logo-text">
+            <div class="logo-title">NEXUS</div>
+            <div class="logo-sub">NEURAL INTERFACE v3.0</div>
+          </div>
+        </div>
+        <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle sidebar">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="section-label">CORE STATUS</div>
+        <div class="status-panel">
+          <div class="status-item">
+            <div class="status-dot" id="statusDot"></div>
+            <span id="statusText">Initializing...</span>
+          </div>
+          <div class="status-metric">
+            <span class="metric-label">NEURAL MODEL</span>
+            <span class="metric-value" id="modelName">—</span>
+          </div>
+          <div class="status-metric">
+            <span class="metric-label">SESS_ID</span>
+            <span class="metric-value" id="sessionId">—</span>
+          </div>
+          <div class="status-metric">
+            <span class="metric-label">EXCHANGE_COUNT</span>
+            <span class="metric-value" id="messageCount">0</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="section-label">CAPABILITIES</div>
+        <div class="capability-list">
+          <div class="cap-item"><div class="cap-icon">⬡</div><span class="cap-text">Quantum Logic</span></div>
+          <div class="cap-item"><div class="cap-icon">⬡</div><span class="cap-text">Synthetic Coding</span></div>
+          <div class="cap-item"><div class="cap-icon">⬡</div><span class="cap-text">Neural Synthesis</span></div>
+          <div class="cap-item"><div class="cap-icon">⬡</div><span class="cap-text">Temporal Analysis</span></div>
+        </div>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="section-label">QUICK ACCESS</div>
+        <div class="quick-prompts">
+          <button class="qp-btn" data-prompt="Analyze the current state of quantum computing.">Quantum Analysis</button>
+          <button class="qp-btn" data-prompt="Write a high-performance Python algorithm for graph traversal.">Algorithm Dev</button>
+          <button class="qp-btn" data-prompt="Synthesize a futuristic vision of human-AI symbiosis.">Speculative Future</button>
+          <button class="qp-btn" data-prompt="Debug a complex race condition in a multi-threaded environment.">Code Debugging</button>
+        </div>
+      </div>
+
+      <div class="sidebar-footer">
+        <button class="clear-btn" id="clearBtn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14H6L5 6"></path><path d="M10 11v6M14 11v6"></path></svg>
+          Wipe Neural Memory
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Chat Area -->
+    <main class="chat-main">
+
+      <!-- Top Bar -->
+      <header class="topbar">
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open menu">
+          <span></span><span></span><span></span>
+        </button>
+        <div class="topbar-title">
+          <span class="title-nexus">NEXUS</span>
+          <span class="title-sep">|</span>
+          <span class="title-sub">Neural Exchange & Unified Execution System</span>
+        </div>
+        <div class="topbar-indicators">
+          <div class="indicator" title="Processing Unit">
+            <div class="ind-dot pulse-cyan"></div>
+            <span class="ind-label">CPU</span>
+          </div>
+          <div class="indicator" title="Memory">
+            <div class="ind-dot pulse-magenta"></div>
+            <span class="ind-label">MEM</span>
+          </div>
+          <div class="indicator" title="Network">
+            <div class="ind-dot pulse-green"></div>
+            <span class="ind-label">NET</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- Messages Area -->
+      <div class="messages-wrapper">
+        <div class="messages-container" id="messagesContainer">
+
+          <!-- Welcome Screen -->
+          <div class="welcome-screen" id="welcomeScreen">
+            <div class="welcome-hex-ring">
+              <div class="hex-core">
+                <div class="hex-inner">N</div>
+                <div class="hex-ring-1"></div>
+                <div class="hex-ring-2"></div>
+              </div>
+            </div>
+            <h1 class="welcome-title">NEXUS ONLINE</h1>
+            <p class="welcome-sub">Neural pathways stabilized. Ready for data exchange.</p>
+            <div class="welcome-grid">
+              <div class="wg-card" data-prompt="What are your core capabilities?">
+                <div class="wg-icon">⬡</div>
+                <div class="wg-label">Capabilities</div>
+              </div>
+              <div class="wg-card" data-prompt="Explain the architecture of your neural network.">
+                <div class="wg-icon">◈</div>
+                <div class="wg-label">Architecture</div>
+              </div>
+              <div class="wg-card" data-prompt="Compose a technical manifesto for the year 2047.">
+                <div class="wg-icon">✦</div>
+                <div class="wg-label">Synthesis</div>
+              </div>
+              <div class="wg-card" data-prompt="Optimise this block of code for latency.">
+                <div class="wg-icon">⌬</div>
+                <div class="wg-label">Optimization</div>
+              </div>
+            </div>
+          </div>
+
+          <div id="messagesList"></div>
+
+          <!-- Typing Indicator -->
+          <div class="typing-indicator" id="typingIndicator" style="display:none;">
+            <div class="typing-avatar">N</div>
+            <div class="typing-bubble">
+              <div class="typing-label">NEXUS is synthesizing response</div>
+              <div class="typing-dots">
+                <span></span><span></span><span></span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Input Area -->
+      <div class="input-area">
+        <div class="input-container">
+          <div class="input-glow-border">
+            <div class="input-inner">
+              <textarea
+                id="messageInput"
+                class="message-textarea"
+                placeholder="Transmit your query to NEXUS..."
+                rows="1"
+                maxlength="10000"
+                aria-label="Message input"
+              ></textarea>
+              <div class="input-actions">
+                <span class="char-counter" id="charCounter">0 / 10000</span>
+                <button class="voice-btn" id="voiceBtn" title="Voice Input" aria-label="Activate voice input">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+                    <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                    <line x1="12" y1="19" x2="12" y2="23"></line>
+                    <line x1="8" y1="23" x2="16" y2="23"></line>
+                  </svg>
+                </button>
+                <button class="send-btn" id="sendBtn" aria-label="Send message" disabled>
+                  <svg class="send-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="22" y1="2" x2="11" y2="13"></line>
+                    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="input-footer">
+            <span class="input-hint">Press <kbd>Enter</kbd> to send · <kbd>Shift+Enter</kbd> for new line</span>
+            <span class="powered-by">Neural Link v3.0 — Gemini 1.5 Flash</span>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- Error Toast -->
+  <div class="toast" id="errorToast">
+    <div class="toast-icon">⚠</div>
+    <div class="toast-message" id="toastMessage"></div>
+    <button class="toast-close" id="toastClose">✕</button>
+  </div>
+
+  <script src="/static/js/script.js"></script>
+</body>
+</html>
