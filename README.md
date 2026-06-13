@@ -113,16 +113,6 @@ uvicorn app:app --reload
 
 ---
 
-## 📸 Screenshots
-
-Add screenshots here:
-
-```markdown
-![Home Page](assets/home.png)
-![Chat Interface](assets/chat.png)
-```
-
----
 
 ## 🔮 Future Enhancements
 
